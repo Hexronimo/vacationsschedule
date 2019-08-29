@@ -52,6 +52,7 @@
   
   <build>
     <sourceDirectory>src</sourceDirectory>
+
 	<plugins>
 		<plugin>
 			<artifactId>maven-compiler-plugin</artifactId>
@@ -93,5 +94,6 @@
 		</plugin>
 
 	</plugins>
+
   </build>
 </project>
