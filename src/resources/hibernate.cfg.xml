@@ -1,0 +1,25 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+			
+			
+<hibernate-configuration>
+
+			<session-factory>
+			
+				<property name="connection.driver_class">org.postgresql.Driver</property>
+				<property name="connection.url">jdbc:postgresql:ec2-54-228-243-238.eu-west-1.compute.amazonaws.com:5432/d884nhdf64h0bh?sslmode=require</property>		
+				<property name="connection.username">rbexibfitzlebx</property>
+				<property name="connection.password">dfb825f06612848b059c9570be497bc2364fbc4959b67a0ad8578407755aa1a0</property>
+				
+				<property name="connection.pool_size">1</property>
+				
+				<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+				
+				<property name="show_sql">true</property>
+				
+				<property name="current_session_context_class">thread</property>
+				
+			</session-factory>
+				
+</hibernate-configuration>				
