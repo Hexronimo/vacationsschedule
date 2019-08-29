@@ -8,9 +8,9 @@
 			<session-factory>
 			
 				<property name="connection.driver_class">org.postgresql.Driver</property>
-				<property name="connection.url">jdbc:postgresql://localhost:5432/vacationsschedule</property>		
-				<property name="connection.username">hex</property>
-				<property name="connection.password">hex</property>
+				<property name="connection.url">jdbc:postgresql:ec2-54-228-243-238.eu-west-1.compute.amazonaws.com:5432/d884nhdf64h0bh?sslmode=require</property>		
+				<property name="connection.username">rbexibfitzlebx</property>
+				<property name="connection.password">dfb825f06612848b059c9570be497bc2364fbc4959b67a0ad8578407755aa1a0</property>
 				
 				<property name="connection.pool_size">1</property>
 				
