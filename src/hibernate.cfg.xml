@@ -8,7 +8,7 @@
 			<session-factory>
 			
 				<property name="connection.driver_class">org.postgresql.Driver</property>
-				<property name="connection.url">jdbc:postgresql://localhost:5432/vacations-schedule</property>		
+				<property name="connection.url">jdbc:postgresql://localhost:5432/vacationsschedule</property>		
 				<property name="connection.username">hex</property>
 				<property name="connection.password">hex</property>
 				

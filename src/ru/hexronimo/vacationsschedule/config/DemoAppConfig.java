@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "ru.hexronimo.vacations-schedule")
+@ComponentScan(basePackages = "ru.hexronimo.vacationsschedule")
 public class DemoAppConfig implements WebMvcConfigurer {
 
 	@Bean
