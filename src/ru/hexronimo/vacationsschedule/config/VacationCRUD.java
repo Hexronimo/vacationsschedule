@@ -30,6 +30,14 @@ public class VacationCRUD {
 		}
 	}
 
+	public static SessionFactory getFactory() {
+		return factory;
+	}
+
+	public static void setFactory(SessionFactory factory) {
+		VacationCRUD.factory = factory;
+	}
+
 	public static List<Position> listPositionsFromDB() throws Exception {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
