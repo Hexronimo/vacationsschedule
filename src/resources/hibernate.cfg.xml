@@ -8,9 +8,9 @@
 			<session-factory>
 			
 				<property name="connection.driver_class">org.postgresql.Driver</property>
-				<property name="connection.url">jdbc:postgresql:ec2-54-228-243-238.eu-west-1.compute.amazonaws.com:5432/d884nhdf64h0bh?sslmode=require</property>		
-				<property name="connection.username">rbexibfitzlebx</property>
-				<property name="connection.password">dfb825f06612848b059c9570be497bc2364fbc4959b67a0ad8578407755aa1a0</property>
+				<property name="connection.url">jdbc:postgresql://ec2-184-73-169-163.compute-1.amazonaws.com:5432/dfbrtqmatmp0rn?sslmode=require</property>		
+				<property name="connection.username">cfzfrskiudvvtv</property>
+				<property name="connection.password">5156ad3cef0608d791dd2a0138a2016fa842227f60726b9c43285acccc28a393</property>
 				
 				<property name="connection.pool_size">1</property>
 				
@@ -22,4 +22,4 @@
 				
 			</session-factory>
 				
-</hibernate-configuration>				
+</hibernate-configuration>					
