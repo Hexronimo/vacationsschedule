@@ -17,6 +17,16 @@ import ru.hexronimo.vacationsschedule.base.VacationsPerYear;
 import ru.hexronimo.vacationsschedule.base.Employee;
 
 public class VacationCRUD {
+	
+	private static VacationCRUD instance;
+	private VacationCRUD(){}
+	
+    public static VacationCRUD getInstance(){
+        if(instance == null){
+            instance = new VacationCRUD();
+        }
+        return instance;
+    }
 
 	private static SessionFactory factory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Employee.class).addAnnotatedClass(Position.class).addAnnotatedClass(Vacation.class)
