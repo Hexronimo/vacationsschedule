@@ -21,6 +21,9 @@ import ru.hexronimo.vacationsschedule.config.VacationCRUD;
 
 @Controller
 public class MyController {
+	
+	private static VacationCRUD vacationCRUD = VacationCRUD.getInstance();
+	
 	@RequestMapping("/about")
 	public String aboutPage(HttpServletRequest request, Model model) {
 		return "about";
@@ -31,15 +34,15 @@ public class MyController {
 		try {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.ENGLISH);
 			model.addAttribute("today", formatter.format(LocalDate.now()));
-			List<Vacation> date = VacationCRUD.getAllVacationsInThreeWeeks();
+			List<Vacation> date = vacationCRUD.getAllVacationsInThreeWeeks();
 			Map<String, String> vacationEmployee = new HashMap<>();
 			for (Vacation v : date) {
 				vacationEmployee.put(v.getDatePeriodAsText(),
-						VacationCRUD.getEmloyeeByIdFromDB(v.getEmployee().getId() + "").getPosition().getPosition()
-								+ " " + VacationCRUD.getEmloyeeByIdFromDB(v.getEmployee().getId() + "").getShortName());
+						vacationCRUD.getEmloyeeByIdFromDB(v.getEmployee().getId() + "").getPosition().getPosition()
+								+ " " + vacationCRUD.getEmloyeeByIdFromDB(v.getEmployee().getId() + "").getShortName());
 			}
 			model.addAttribute("vacations", vacationEmployee);
-			List<Employee> employees = VacationCRUD.getAllClosestBirthdays();
+			List<Employee> employees = vacationCRUD.getAllClosestBirthdays();
 			model.addAttribute("birthdays", employees);
 		} catch (Exception e) {
 			System.out.println("ERROR: " + e.getMessage());
@@ -53,13 +56,13 @@ public class MyController {
 	@RequestMapping("/addEmployee")
 	public String addEmployeeForm(HttpServletRequest request, Model model) {
 		try {
-			List<Position> positions = VacationCRUD.listPositionsFromDB();
+			List<Position> positions = vacationCRUD.listPositionsFromDB();
 			model.addAttribute("positions", positions);
 
 			String id = request.getParameter("id");
 
 			if (id != null && !id.equals("")) {
-				Employee employee = VacationCRUD.getEmloyeeByIdFromDB(id);
+				Employee employee = vacationCRUD.getEmloyeeByIdFromDB(id);
 
 				String position = employee.getPosition() == null ? "" : employee.getPosition().getPosition();
 
@@ -113,19 +116,19 @@ public class MyController {
 				if (position != null) {
 					position = position.toLowerCase();
 					Position employeePosition = new Position(position);
-					employee.setPosition(VacationCRUD.createPositionAtDB(employeePosition));
+					employee.setPosition(vacationCRUD.createPositionAtDB(employeePosition));
 				}
 
 				// in case of update (submit updated data about employee)
 				if (id != null && !id.equals("")) {
 					employee.setId(Integer.parseInt(id));
-					VacationCRUD.updateEmloyeeAtDB(employee);
+					vacationCRUD.updateEmloyeeAtDB(employee);
 					model.addAttribute("id", id);
 					ifError = "Data on " + employee.getFullName() + " successfully updated";
 
 					// in case of creation (submit new worker)
 				} else {
-					VacationCRUD.createEmployeeAtDB(employee);
+					vacationCRUD.createEmployeeAtDB(employee);
 					ifError = employee.getFullName() + " successfully added to database";
 				}
 				model.addAttribute("employeeName", employee.getFullName());
@@ -157,8 +160,8 @@ public class MyController {
 
 		if (id != null) {
 			try {
-				Employee employee = VacationCRUD.getEmloyeeByIdFromDB(id);
-				VacationCRUD.deleteEmloyeeFromDB(id);
+				Employee employee = vacationCRUD.getEmloyeeByIdFromDB(id);
+				vacationCRUD.deleteEmloyeeFromDB(id);
 				ifError = "Employee " + employee.getFullName() + "successfully deleted from database";
 				model.addAttribute("ifError", ifError);
 				model.addAttribute("annatationColor", annatationColor);
@@ -179,10 +182,10 @@ public class MyController {
 	public String listEmployees(HttpServletRequest request, Model model) {
 		String ifError = "";
 		try {
-			List<Employee> listEmployees = VacationCRUD.listEmployeesFromDB();
+			List<Employee> listEmployees = vacationCRUD.listEmployeesFromDB();
 			for (Employee e : listEmployees) {
-				e.setClosestVacation(VacationCRUD.getClosestVacationDateOfEmployee(e));
-				List<Vacation> vacationList = VacationCRUD.getCurrentVacationsOfEmployee(e);
+				e.setClosestVacation(vacationCRUD.getClosestVacationDateOfEmployee(e));
+				List<Vacation> vacationList = vacationCRUD.getCurrentVacationsOfEmployee(e);
 				if (vacationList == null || vacationList.size() == 0) {
 					e.setCurrentlyOnVacation(false);
 				} else {
@@ -206,9 +209,9 @@ public class MyController {
 		String id = request.getParameter("id");
 		try {
 			if (id != null && !id.equals("")) {
-				Employee employee = VacationCRUD.getEmloyeeByIdFromDB(id);
+				Employee employee = vacationCRUD.getEmloyeeByIdFromDB(id);
 				String position = employee.getPosition() == null ? "" : employee.getPosition().getPosition();
-				VacationsPerYear[] vpr = VacationCRUD.getVacationsPerYearOfEmployee(employee);
+				VacationsPerYear[] vpr = vacationCRUD.getVacationsPerYearOfEmployee(employee);
 
 				model.addAttribute("idEmployee", id);
 				model.addAttribute("shortName", employee.getShortName());
@@ -217,12 +220,12 @@ public class MyController {
 
 				model.addAttribute("vacationsPerYear", vpr);
 
-				List<Vacation> upcomingVacations = (List<Vacation>) VacationCRUD
+				List<Vacation> upcomingVacations = (List<Vacation>) vacationCRUD
 						.getUpcomingVacationsOfEmployee(employee);
 				model.addAttribute("upcomingVacations", upcomingVacations);
-				List<Vacation> passedVacations = (List<Vacation>) VacationCRUD.getPassedVacationsOfEmployee(employee);
+				List<Vacation> passedVacations = (List<Vacation>) vacationCRUD.getPassedVacationsOfEmployee(employee);
 				model.addAttribute("passedVacations", passedVacations);
-				List<Vacation> currentVacations = (List<Vacation>) VacationCRUD.getCurrentVacationsOfEmployee(employee);
+				List<Vacation> currentVacations = (List<Vacation>) vacationCRUD.getCurrentVacationsOfEmployee(employee);
 				model.addAttribute("currentVacations", currentVacations);
 
 				Map<Integer, Integer> vprDaysLeft = new HashMap<>();
@@ -231,7 +234,7 @@ public class MyController {
 				vprDaysLeft.put(VacationsPerYear.getCheckingYears()[2], vpr[2].getDays());
 				vprDaysLeft.put(VacationsPerYear.getCheckingYears()[3], vpr[3].getDays());
 
-				List<Vacation> allVacations = (List<Vacation>) VacationCRUD.getVacationsOfEmployee(employee);
+				List<Vacation> allVacations = (List<Vacation>) vacationCRUD.getVacationsOfEmployee(employee);
 				if (allVacations != null) {
 					for (Vacation v : allVacations) {
 						if (vprDaysLeft.containsKey(Integer.parseInt(v.getYearAsString()))) {
@@ -290,7 +293,7 @@ public class MyController {
 					year = formatter.format(LocalDate.now());
 				formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 				vacation.setYear(LocalDate.parse(year + "0101", formatter));
-				VacationCRUD.createVacationAtDB(vacation);
+				vacationCRUD.createVacationAtDB(vacation);
 				ifError = "Vacations successfully added to " + shortName;
 			} else if ("true".equals(ifUpdateVPY)) {
 				model.addAttribute("shortName", shortName);
@@ -309,7 +312,7 @@ public class MyController {
 					vacationsPerYear[i].setDays(Integer.parseInt(vpy[i]));
 				}
 
-				VacationCRUD.updateVacationsPerYearOfEmployee(employee, vacationsPerYear);
+				vacationCRUD.updateVacationsPerYearOfEmployee(employee, vacationsPerYear);
 				ifError = "Quantity of vacation days per year for " + shortName + " successfully changed";
 			} else {
 				submitted = false;
