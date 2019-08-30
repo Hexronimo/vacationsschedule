@@ -1,5 +1,7 @@
 package ru.hexronimo.vacationsschedule.mvc;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -322,8 +324,11 @@ public class MyController {
 			}
 		} catch (Exception e) {
 			System.out.println("ERROR: " + e.getMessage());
-			e.printStackTrace();
-			ifError = "ERROR: " + e.getMessage() + e.getStackTrace();
+			StringWriter sw = new StringWriter();
+			PrintWriter pw = new PrintWriter(sw);
+			e.printStackTrace(pw);
+			String sStackTrace = sw.toString();
+			ifError = "ERROR: " + e.getMessage() + "\n" + sStackTrace;
 			annatationColor = "bg-danger";
 		}
 		model.addAttribute("annatationColor", annatationColor);
