@@ -40,10 +40,12 @@ public class MyController {
 			model.addAttribute("today", formatter.format(LocalDate.now()));
 			List<Vacation> date = vacationCRUD.getAllVacationsInThreeWeeks();
 			Map<String, String> vacationEmployee = new HashMap<>();
-			for (Vacation v : date) {
-				vacationEmployee.put(v.getDatePeriodAsText(),
-						vacationCRUD.getEmloyeeByIdFromDB(v.getEmployee().getId() + "").getPosition().getPosition()
-								+ " " + vacationCRUD.getEmloyeeByIdFromDB(v.getEmployee().getId() + "").getShortName());
+			if (date != null) {
+				for (Vacation v : date) {
+					vacationEmployee.put(v.getDatePeriodAsText(),
+							vacationCRUD.getEmloyeeByIdFromDB(v.getEmployee().getId() + "").getPosition().getPosition()
+									+ " " + vacationCRUD.getEmloyeeByIdFromDB(v.getEmployee().getId() + "").getShortName());
+				}
 			}
 			model.addAttribute("vacations", vacationEmployee);
 			List<Employee> employees = vacationCRUD.getAllClosestBirthdays();
@@ -187,13 +189,15 @@ public class MyController {
 		String ifError = "";
 		try {
 			List<Employee> listEmployees = vacationCRUD.listEmployeesFromDB();
-			for (Employee e : listEmployees) {
-				e.setClosestVacation(vacationCRUD.getClosestVacationDateOfEmployee(e));
-				List<Vacation> vacationList = vacationCRUD.getCurrentVacationsOfEmployee(e);
-				if (vacationList == null || vacationList.size() == 0) {
-					e.setCurrentlyOnVacation(false);
-				} else {
-					e.setCurrentlyOnVacation(true);
+			if (listEmployees != null) {
+				for (Employee e : listEmployees) {
+					e.setClosestVacation(vacationCRUD.getClosestVacationDateOfEmployee(e));
+					List<Vacation> vacationList = vacationCRUD.getCurrentVacationsOfEmployee(e);
+					if (vacationList == null || vacationList.size() == 0) {
+						e.setCurrentlyOnVacation(false);
+					} else {
+						e.setCurrentlyOnVacation(true);
+					}
 				}
 			}
 			model.addAttribute("employees", listEmployees);
@@ -324,11 +328,7 @@ public class MyController {
 			}
 		} catch (Exception e) {
 			System.out.println("ERROR: " + e.getMessage());
-			StringWriter sw = new StringWriter();
-			PrintWriter pw = new PrintWriter(sw);
-			e.printStackTrace(pw);
-			String sStackTrace = sw.toString();
-			ifError = "ERROR: " + e.getMessage() + "\n" + sStackTrace;
+			ifError = "ERROR: " + e.getMessage();
 			annatationColor = "bg-danger";
 		}
 		model.addAttribute("annatationColor", annatationColor);
