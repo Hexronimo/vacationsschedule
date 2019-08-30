@@ -23,10 +23,6 @@ import ru.hexronimo.vacationsschedule.config.VacationCrud;
 @Table(name = "vacation")
 public class Vacation {
 	
-	@Transient
-	@Autowired
-	private VacationCrud vacationCRUD;
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "vacation_id_seq")
 	@Column(name = "id", updatable = false, nullable = false)
@@ -41,6 +37,10 @@ public class Vacation {
 	@ManyToOne
 	@JoinColumn(name = "employee_id")
 	private Employee employee;
+	
+	@Transient
+	@Autowired
+	private VacationCrud vacationCRUD;
 
 	public Vacation() {}
 
