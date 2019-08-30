@@ -28,13 +28,28 @@ public class VacationCrud {
         	
         	if (factory == null) {
 	            Properties prop= new Properties();
-	            prop.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
-	            prop.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/vacationsschedule");
-	            prop.setProperty("hibernate.connection.username", "hex");
-	            prop.setProperty("hibernate.connection.password", "hex");
-	            prop.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-	            prop.setProperty("hibernate.connection.pool_size", "1");
-	            prop.setProperty("hibernate.current_session_context_class", "thread");
+				/*
+				 * Properties for DB restored from dump at Github
+				 * 
+				 * prop.setProperty("hibernate.connection.driver_class",
+				 * "org.postgresql.Driver"); prop.setProperty("hibernate.connection.url",
+				 * "jdbc:postgresql://localhost:5432/vacationsschedule");
+				 * prop.setProperty("hibernate.connection.username", "hex");
+				 * prop.setProperty("hibernate.connection.password", "hex");
+				 * prop.setProperty("hibernate.dialect",
+				 * "org.hibernate.dialect.PostgreSQLDialect");
+				 * prop.setProperty("hibernate.connection.pool_size", "1");
+				 * prop.setProperty("hibernate.current_session_context_class", "thread");
+				 */
+							  
+				  prop.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver"); 
+				  prop.setProperty("hibernate.connection.url", "jdbc:postgresql://ec2-184-73-169-163.compute-1.amazonaws.com:5432/dfbrtqmatmp0rn");
+				  prop.setProperty("hibernate.connection.username", "cfzfrskiudvvtv");
+				  prop.setProperty("hibernate.connection.password", "5156ad3cef0608d791dd2a0138a2016fa842227f60726b9c43285acccc28a393");
+				  prop.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+				  prop.setProperty("hibernate.connection.pool_size", "1");
+				  prop.setProperty("hibernate.current_session_context_class", "thread");
+				 
 	
 	            
 	            SessionFactory newFactory = new Configuration()
