@@ -44,14 +44,9 @@ public class Vacation {
 
 	public Vacation() {}
 
-	public Vacation(LocalDate startDate, LocalDate endDate, String idEmployee) {
+	public Vacation(LocalDate startDate, LocalDate endDate) {
 		this.startDate = startDate;
 		this.endDate = endDate;
-		try {
-			this.employee = vacationCRUD.getEmloyeeByIdFromDB(idEmployee);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	public int getId() {
