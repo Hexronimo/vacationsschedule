@@ -323,7 +323,7 @@ public class MyController {
 		} catch (Exception e) {
 			System.out.println("ERROR: " + e.getMessage());
 			e.printStackTrace();
-			ifError = "ERROR: " + e.getMessage();
+			ifError = "ERROR: " + e.getMessage() + e.getStackTrace();
 			annatationColor = "bg-danger";
 		}
 		model.addAttribute("annatationColor", annatationColor);
