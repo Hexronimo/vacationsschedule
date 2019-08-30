@@ -10,19 +10,24 @@ import javax.persistence.NoResultException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.springframework.stereotype.Repository;
 
 import ru.hexronimo.vacationsschedule.base.Position;
 import ru.hexronimo.vacationsschedule.base.Vacation;
 import ru.hexronimo.vacationsschedule.base.VacationsPerYear;
 import ru.hexronimo.vacationsschedule.base.Employee;
 
+@Repository
 public class VacationCRUD {
 	
 	private static SessionFactory factory = new Configuration().configure("hibernate.cfg.xml")
-			.addAnnotatedClass(Employee.class).addAnnotatedClass(Position.class).addAnnotatedClass(Vacation.class)
-			.addAnnotatedClass(VacationsPerYear.class).buildSessionFactory();
+			.addAnnotatedClass(Employee.class)
+			.addAnnotatedClass(Position.class)
+			.addAnnotatedClass(Vacation.class)
+			.addAnnotatedClass(VacationsPerYear.class)
+			.buildSessionFactory();
 
-	public static void createEmployeeAtDB(Employee employee) throws Exception {
+	public void createEmployeeAtDB(Employee employee) throws Exception {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
 			session.save(employee);
@@ -30,7 +35,7 @@ public class VacationCRUD {
 		}
 	}
 
-	public static List<Position> listPositionsFromDB() throws Exception {
+	public List<Position> listPositionsFromDB() throws Exception {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
 			@SuppressWarnings("unchecked")
@@ -41,7 +46,7 @@ public class VacationCRUD {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static Position createPositionAtDB(Position position) throws Exception {
+	public Position createPositionAtDB(Position position) throws Exception {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
 			List<Position> listPositions = (List<Position>) session
@@ -57,7 +62,7 @@ public class VacationCRUD {
 		}
 	}
 
-	public static void deleteEmloyeeFromDB(String id) throws Exception {
+	public void deleteEmloyeeFromDB(String id) throws Exception {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
 			session.createQuery("DELETE FROM Employee e WHERE e.id=" + id).executeUpdate();
@@ -65,7 +70,7 @@ public class VacationCRUD {
 		}
 	}
 
-	public static Employee getEmloyeeByIdFromDB(String id) throws Exception {
+	public Employee getEmloyeeByIdFromDB(String id) throws Exception {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
 			@SuppressWarnings("unchecked")
@@ -76,7 +81,7 @@ public class VacationCRUD {
 		}
 	}
 
-	public static void updateEmloyeeAtDB(Employee employee) throws Exception {
+	public void updateEmloyeeAtDB(Employee employee) throws Exception {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
 			session.update(employee);
@@ -84,7 +89,7 @@ public class VacationCRUD {
 		}
 	}
 
-	public static List<Employee> listEmployeesFromDB() throws Exception {
+	public List<Employee> listEmployeesFromDB() throws Exception {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
 			@SuppressWarnings("unchecked")
@@ -94,7 +99,7 @@ public class VacationCRUD {
 		}
 	}
 
-	public static String getClosestVacationDateOfEmployee(Employee employee) throws Exception {
+	public String getClosestVacationDateOfEmployee(Employee employee) throws Exception {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
 			@SuppressWarnings("unchecked")
@@ -110,7 +115,7 @@ public class VacationCRUD {
 		}
 	}
 
-	public static List<Vacation> getAllVacationsInThreeWeeks() throws Exception {
+	public List<Vacation> getAllVacationsInThreeWeeks() throws Exception {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
 			@SuppressWarnings("unchecked")
@@ -124,7 +129,7 @@ public class VacationCRUD {
 		}
 	}
 
-	public static List<Employee> getAllClosestBirthdays() throws Exception {
+	public List<Employee> getAllClosestBirthdays() throws Exception {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -153,7 +158,7 @@ public class VacationCRUD {
 		}
 	}
 
-	public static List<Vacation> getUpcomingVacationsOfEmployee(Employee employee) throws Exception {
+	public List<Vacation> getUpcomingVacationsOfEmployee(Employee employee) throws Exception {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
 			@SuppressWarnings("unchecked")
@@ -166,7 +171,7 @@ public class VacationCRUD {
 		}
 	}
 
-	public static List<Vacation> getPassedVacationsOfEmployee(Employee employee) throws Exception {
+	public List<Vacation> getPassedVacationsOfEmployee(Employee employee) throws Exception {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
 			@SuppressWarnings("unchecked")
@@ -179,7 +184,7 @@ public class VacationCRUD {
 		}
 	}
 
-	public static List<Vacation> getCurrentVacationsOfEmployee(Employee employee) throws Exception {
+	public List<Vacation> getCurrentVacationsOfEmployee(Employee employee) throws Exception {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
 			@SuppressWarnings("unchecked")
@@ -194,7 +199,7 @@ public class VacationCRUD {
 		}
 	}
 
-	public static List<Vacation> getVacationsOfEmployee(Employee employee) throws Exception {
+	public List<Vacation> getVacationsOfEmployee(Employee employee) throws Exception {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
 			@SuppressWarnings("unchecked")
@@ -207,7 +212,7 @@ public class VacationCRUD {
 		}
 	}
 
-	public static void createVacationAtDB(Vacation vacation) throws Exception {
+	public void createVacationAtDB(Vacation vacation) throws Exception {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
 			session.save(vacation);
@@ -215,7 +220,7 @@ public class VacationCRUD {
 		}
 	}
 
-	public static void deleteVacationAtDB(String id) throws Exception {
+	public void deleteVacationAtDB(String id) throws Exception {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
 			session.createQuery("DELETE FROM Vacation WHERE id=" + id).executeUpdate();
@@ -223,7 +228,7 @@ public class VacationCRUD {
 		}
 	}
 
-	public static void deleteTooOldVacations() {
+	public void deleteTooOldVacations() {
 		// delete too old data about vacations (more then 3 years old)
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
@@ -240,7 +245,7 @@ public class VacationCRUD {
 		}
 	}
 
-	public static void updateVacationsPerYearOfEmployee(Employee employee, VacationsPerYear[] vacationsPerYear) {
+	public void updateVacationsPerYearOfEmployee(Employee employee, VacationsPerYear[] vacationsPerYear) {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
 			session.createQuery("UPDATE VacationsPerYear SET days=" + vacationsPerYear[0].getDays()
@@ -262,7 +267,7 @@ public class VacationCRUD {
 		}
 	}
 
-	public static VacationsPerYear[] getVacationsPerYearOfEmployee(Employee employee) {
+	public VacationsPerYear[] getVacationsPerYearOfEmployee(Employee employee) {
 		try (Session session = factory.getCurrentSession()) {
 			session.beginTransaction();
 			VacationsPerYear[] days = new VacationsPerYear[4];

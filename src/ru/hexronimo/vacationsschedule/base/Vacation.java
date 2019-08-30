@@ -13,12 +13,20 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import ru.hexronimo.vacationsschedule.config.VacationCRUD;
 
 @Entity
 @Table(name = "vacation")
 public class Vacation {
+	
+	@Transient
+	@Autowired
+	private VacationCRUD vacationCRUD;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "vacation_id_seq")
 	@Column(name = "id", updatable = false, nullable = false)
@@ -40,7 +48,7 @@ public class Vacation {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		try {
-			this.employee = VacationCRUD.getEmloyeeByIdFromDB(idEmployee);
+			this.employee = vacationCRUD.getEmloyeeByIdFromDB(idEmployee);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

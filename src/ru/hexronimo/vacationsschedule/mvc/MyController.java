@@ -236,7 +236,7 @@ public class MyController {
 				vprDaysLeft.put(VacationsPerYear.getCheckingYears()[2], vpr[2].getDays());
 				vprDaysLeft.put(VacationsPerYear.getCheckingYears()[3], vpr[3].getDays());
 
-				List<Vacation> allVacations = (List<Vacation>) VacationCRUD.getVacationsOfEmployee(employee);
+				List<Vacation> allVacations = (List<Vacation>) vacationCRUD.getVacationsOfEmployee(employee);
 				if (allVacations != null) {
 					for (Vacation v : allVacations) {
 						if (vprDaysLeft.containsKey(Integer.parseInt(v.getYearAsString()))) {
