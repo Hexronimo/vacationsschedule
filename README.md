@@ -6,6 +6,7 @@ This is training project which was created during the part of Spring+Hibernate c
 
 ## How to use
 Live version can be found at https://morning-oasis-75907.herokuapp.com/
+
 You may add new employee or edit existing, then go to "List Employees" and press button with the calendar icon (Add vacations), check vacation days per year (default is 28 days) and chenge it if you need, add vacations. Now all upcoming vacations will be shown at homepage and people who are currently on vacation will have that label at emloyees list. As little bonus all birthdays which occurs during two weeks will be shown at homepage too. For more information look at https://morning-oasis-75907.herokuapp.com/about
 
 ## Build
