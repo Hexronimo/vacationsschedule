@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @ComponentScan(basePackages = "ru.hexronimo.vacationsschedule")
 public class DemoAppConfig implements WebMvcConfigurer {
-
+	
 	@Bean
 	public ViewResolver viewResolver() {
 

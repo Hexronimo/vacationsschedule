@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
 
 import javax.persistence.NoResultException;
 
@@ -19,13 +20,41 @@ import ru.hexronimo.vacationsschedule.base.Employee;
 
 @Repository
 public class VacationCrud {
+	private SessionFactory factory = buildSessionFactory();
+
 	
-	private static SessionFactory factory = new Configuration().configure("hibernate.cfg.xml")
-			.addAnnotatedClass(Employee.class)
-			.addAnnotatedClass(Position.class)
-			.addAnnotatedClass(Vacation.class)
-			.addAnnotatedClass(VacationsPerYear.class)
-			.buildSessionFactory();
+	private SessionFactory buildSessionFactory() {
+        try {
+        	
+        	if (factory == null) {
+	            Properties prop= new Properties();
+	            prop.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
+	            prop.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/vacationsschedule");
+	            prop.setProperty("hibernate.connection.username", "hex");
+	            prop.setProperty("hibernate.connection.password", "hex");
+	            prop.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+	            prop.setProperty("hibernate.connection.pool_size", "1");
+	            prop.setProperty("hibernate.current_session_context_class", "thread");
+	
+	            
+	            SessionFactory newFactory = new Configuration()
+	            		.addAnnotatedClass(Employee.class)
+	        			.addAnnotatedClass(Position.class)
+	        			.addAnnotatedClass(Vacation.class)
+	        			.addAnnotatedClass(VacationsPerYear.class)
+	        			.addProperties(prop) 
+	        			.buildSessionFactory();
+	            
+	            return newFactory;
+        	}
+        	return factory;
+
+        } catch (Throwable ex) {
+            System.err.println("Initial SessionFactory creation failed." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+	}
+			
 
 	public void createEmployeeAtDB(Employee employee) throws Exception {
 		try (Session session = factory.getCurrentSession()) {
