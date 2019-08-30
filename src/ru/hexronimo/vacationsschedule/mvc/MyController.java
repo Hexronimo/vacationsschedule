@@ -290,7 +290,7 @@ public class MyController {
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 				Vacation vacation = new Vacation(LocalDate.parse(startDate, formatter),
 						LocalDate.parse(endDate, formatter));
-				vacation.setEmployee = vacationCrud.getEmloyeeByIdFromDB(idEmployee);
+				vacation.setEmployee(vacationCrud.getEmloyeeByIdFromDB(idEmployee));
 				formatter = DateTimeFormatter.ofPattern("yyyy");
 				if (year == null || "".equals(year))
 					year = formatter.format(LocalDate.now());
