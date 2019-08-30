@@ -17,7 +17,7 @@ import javax.persistence.Transient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ru.hexronimo.vacationsschedule.config.VacationCRUD;
+import ru.hexronimo.vacationsschedule.config.VacationCrud;
 
 @Entity
 @Table(name = "vacation")
@@ -25,7 +25,7 @@ public class Vacation {
 	
 	@Transient
 	@Autowired
-	private VacationCRUD vacationCRUD;
+	private VacationCrud vacationCRUD;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "vacation_id_seq")

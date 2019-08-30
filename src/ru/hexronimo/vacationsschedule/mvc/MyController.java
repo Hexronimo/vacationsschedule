@@ -18,13 +18,13 @@ import ru.hexronimo.vacationsschedule.base.Employee;
 import ru.hexronimo.vacationsschedule.base.Position;
 import ru.hexronimo.vacationsschedule.base.Vacation;
 import ru.hexronimo.vacationsschedule.base.VacationsPerYear;
-import ru.hexronimo.vacationsschedule.config.VacationCRUD;
+import ru.hexronimo.vacationsschedule.config.VacationCrud;
 
 @Controller
 public class MyController {
 	
 	@Autowired
-	private VacationCRUD vacationCRUD;
+	private VacationCrud vacationCRUD;
 	
 	@RequestMapping("/about")
 	public String aboutPage(HttpServletRequest request, Model model) {
