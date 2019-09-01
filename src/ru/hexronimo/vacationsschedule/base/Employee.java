@@ -83,6 +83,13 @@ public class Employee {
 	
 	public String getBirthdayAsString() {
 		if (this.birthday == null) return "";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.ENGLISH);
+		String birthday = this.birthday.format(formatter);
+		return birthday;
+	}
+	
+	public String getBirthdayAsStringWords() {
+		if (this.birthday == null) return "";
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH);
 		String birthday = this.birthday.format(formatter);
 		return birthday;
