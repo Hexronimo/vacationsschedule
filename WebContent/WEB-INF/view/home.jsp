@@ -69,7 +69,7 @@ body {
 								<c:out value="${b.position.position}" />
 								<c:out value="${b.shortName}" />
 							</h5>
-							<c:out value="${b.birthdayAsStringWord}" />
+							<c:out value="${b.birthdayAsStringWords}" />
 						</div>
 					</div>
 				</c:forEach>
