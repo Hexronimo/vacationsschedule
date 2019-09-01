@@ -43,9 +43,9 @@ public class VacationCrud {
 				 */
 							  
 				  prop.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver"); 
-				  prop.setProperty("hibernate.connection.url", "jdbc:postgresql://ec2-184-73-169-163.compute-1.amazonaws.com:5432/dfbrtqmatmp0rn?sslmode=require");
-				  prop.setProperty("hibernate.connection.username", "cfzfrskiudvvtv");
-				  prop.setProperty("hibernate.connection.password", "5156ad3cef0608d791dd2a0138a2016fa842227f60726b9c43285acccc28a393");
+				  prop.setProperty("hibernate.connection.url", "jdbc:postgresql://ec2-174-129-238-192.compute-1.amazonaws.com:5432/devmi4i9r29819?sslmode=require");
+				  prop.setProperty("hibernate.connection.username", "cbsotilmmseaez");
+				  prop.setProperty("hibernate.connection.password", "fc6d46af89414541dcca0400497ccff68363eaedf43391340fb6bdf3ea219416");
 				  prop.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 				  prop.setProperty("hibernate.connection.pool_size", "1");
 				  prop.setProperty("hibernate.current_session_context_class", "thread");
