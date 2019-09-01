@@ -13,9 +13,9 @@ You may add new employee or edit existing, then go to "List Employees" and press
 Most likely you will not do it, but you may build it from sources. To do so, you need to:
 * restore dbexport.pgsql file from the root of this repository (DB name: vacationsschedule, user and password: hex)
 ![My image](https://github.com/Hexronimo/vacationsschedule/raw/master/vshchdbsc.png)
-* change database settings at file ru.hexronimo.vacationsschedule.config.VacationCrud.java, most likely you will need to uncomment block at line 32 and comment one at 45 (because this connection is for Heroku demo page)
+* change database settings at file ru.hexronimo.vacationsschedule.config.VacationCrud.java, there is small instruction in comments inside this file
 * Set up Tomcat server 
-* Now you can run it on server
+* Now you can run it on your own server
 
 If you need any help feel free to ask.
 
