@@ -1,5 +1,6 @@
 package ru.hexronimo.vacationsschedule.config;
 
+import java.net.URI;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -24,33 +25,35 @@ public class VacationCrud {
 
 	
 	private SessionFactory buildSessionFactory() {
-        try {
-        	
-        	if (factory == null) {
-	            Properties prop= new Properties();
+		try {
+
+			if (factory == null) {
+				Properties prop = new Properties();
+
 				/*
-				 * Properties for DB restored from dump at Github
-				 * 
-				 * prop.setProperty("hibernate.connection.driver_class",
-				 * "org.postgresql.Driver"); prop.setProperty("hibernate.connection.url",
-				 * "jdbc:postgresql://localhost:5432/vacationsschedule");
-				 * prop.setProperty("hibernate.connection.username", "hex");
-				 * prop.setProperty("hibernate.connection.password", "hex");
-				 * prop.setProperty("hibernate.dialect",
-				 * "org.hibernate.dialect.PostgreSQLDialect");
-				 * prop.setProperty("hibernate.connection.pool_size", "1");
-				 * prop.setProperty("hibernate.current_session_context_class", "thread");
+				 * start of Heroku credentials. 
+				 * If you want to test this application on other server with your own DB,
+				 * delete dbUri variable and change values of [username], [password] and [dbUrl]
+				 * to your DB credentials
 				 */
-							  
-				  prop.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver"); 
-				  prop.setProperty("hibernate.connection.url", "jdbc:postgresql://ec2-174-129-238-192.compute-1.amazonaws.com:5432/devmi4i9r29819?sslmode=require");
-				  prop.setProperty("hibernate.connection.username", "cbsotilmmseaez");
-				  prop.setProperty("hibernate.connection.password", "fc6d46af89414541dcca0400497ccff68363eaedf43391340fb6bdf3ea219416");
-				  prop.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-				  prop.setProperty("hibernate.connection.pool_size", "1");
-				  prop.setProperty("hibernate.current_session_context_class", "thread");
-				 
-	
+
+				URI dbUri = new URI(System.getenv("DATABASE_URL"));
+				String username = dbUri.getUserInfo().split(":")[0];
+				String password = dbUri.getUserInfo().split(":")[1];
+				String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath()
+						+ "?sslmode=require";
+				
+				/* end of Heroku credentials */
+				
+				prop.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
+				prop.setProperty("hibernate.connection.url", dbUrl);
+				prop.setProperty("hibernate.connection.username", username);
+				prop.setProperty("hibernate.connection.password", password);
+				prop.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+				prop.setProperty("hibernate.connection.pool_size", "1");
+				prop.setProperty("hibernate.current_session_context_class", "thread");
+
+				
 	            
 	            SessionFactory newFactory = new Configuration()
 	            		.addAnnotatedClass(Employee.class)
